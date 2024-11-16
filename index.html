@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #020000;
+        }
+        .game-container {
+            background-color: rgb(252, 249, 249);
+            border-radius: 10px;
+            padding: 30px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #e10707;
+        }
+        button {
+            background-color: #d80b0b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ffffff;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h2>لعبة  الحظ</h2>
+        <p>اختر رقم بين 1 و 100</p>
+        <input type="number" id="userGuess" min="1" max="100" placeholder="أدخل الرقم هنا">
+        <button onclick="checkGuess()">تخمين</button>
+        <p class="message" id="message"></p>
+        <button onclick="resetGame()">إعادة اللعب</button>
+    </div>
+
+    <script>
+        // توليد الرقم العشوائي
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        // دالة التحقق من التخمين
+        function checkGuess() {
+            const userGuess = document.getElementById("userGuess").value;
+            const message = document.getElementById("message");
+            attempts++;
+
+            if (userGuess < randomNumber) {
+                message.textContent = " يا عم الغبي ارحمني الرقم اكبر   !   .";
+                message.style.color = "orange";
+            } else if (userGuess > randomNumber) {
+                message.textContent = "يا عم الغبي ارحمني الرقم اصغر   !   .";
+                message.style.color = "orange";
+            } else {
+                message.textContent = ` عاش هي ب الصدفه اصلا !     ${randomNumber} في ${attempts} محاولات.`;
+                message.style.color = "green";
+            }
+        }
+
+        // دالة لإعادة تعيين اللعبة
+        function resetGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById("userGuess").value = '';
+            document.getElementById("message").textContent = '';
+        }
+    </script>
+
+</body>
+</html>
